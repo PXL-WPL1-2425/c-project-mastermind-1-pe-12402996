@@ -1,4 +1,5 @@
 ﻿using System.Printing;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks.Dataflow;
 using System.Windows;
@@ -10,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace C_mastermindSprint1
 {
@@ -17,7 +19,7 @@ namespace C_mastermindSprint1
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {                
         List<string> colors = new List<string> { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
         private List<string> secretCode = new List<string>();
         public MainWindow()
@@ -25,7 +27,7 @@ namespace C_mastermindSprint1
             InitializeComponent();
 
             var randomCode = new Random();
-            
+
             for (int i = 0; i < 4; i++)
             {
                 secretCode.Add(colors[randomCode.Next(colors.Count)]);
@@ -33,6 +35,14 @@ namespace C_mastermindSprint1
             }
             this.Title = "Secret code: " + string.Join(", ", secretCode);
         }
+        //private DispatcherTimer timer = new DispatcherTimer();
+
+        //private void Timer_Tick(object? sender, EventArgs e)
+        //{
+        //    TimeSpan interval = new TimeSpan(0, 0, 1);
+
+        //    timerTextBox.Text = interval.ToString();
+        //}
 
         private void ComboBoxColour_SelectionChanged1(object sender, SelectionChangedEventArgs e)
         {
@@ -177,16 +187,30 @@ namespace C_mastermindSprint1
                 }
             }
 
+            int countAttempts = 0;
             int guessAttempts = 0;
 
-            while (guessAttempts < 100)
+            while (guessAttempts == countAttempts)
             {
-                
-                this.Title = $"Poging nummer: " + guessAttempts++;
+                guessAttempts++;
+                countAttempts++;
+                this.Title = $"Poging: " + countAttempts;
                                 
             }
-
         }
+
+
+        private void toggleDebug(object sender, KeyEventArgs e)
+        {
+            string showGeneratedCode = this.Title;
+            if ((e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl) && (e.Key == Key.F12))
+
+            {
+                generatedCodeTextBox.Text = showGeneratedCode;
+            }
+        }
+
+
     }
 }
 
