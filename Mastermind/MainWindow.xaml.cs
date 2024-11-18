@@ -44,6 +44,12 @@ namespace C_mastermindSprint1
             timerTextBox.Text = interval.ToString();
         }
 
+        private void StopCountDown(object? sender, EventArgs e)
+        {
+            checkButton_Click();
+            timer.Stop();
+        }
+
         private void ComboBoxColour_SelectionChanged1(object sender, SelectionChangedEventArgs e)
         {
             if (sender == comboBoxColour1 && comboBoxColour1.SelectedItem != null)
