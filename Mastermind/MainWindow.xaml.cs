@@ -35,14 +35,14 @@ namespace C_mastermindSprint1
             }
             this.Title = "Secret code: " + string.Join(", ", secretCode);
         }
-        //private DispatcherTimer timer = new DispatcherTimer();
+        private DispatcherTimer timer = new DispatcherTimer();
 
-        //private void Timer_Tick(object? sender, EventArgs e)
-        //{
-        //    TimeSpan interval = new TimeSpan(0, 0, 1);
+        private void StartCountDown(object? sender, EventArgs e)
+        {
+            TimeSpan interval = new TimeSpan(0, 0, 1);
 
-        //    timerTextBox.Text = interval.ToString();
-        //}
+            timerTextBox.Text = interval.ToString();
+        }
 
         private void ComboBoxColour_SelectionChanged1(object sender, SelectionChangedEventArgs e)
         {
